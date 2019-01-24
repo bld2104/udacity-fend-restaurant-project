@@ -1,6 +1,8 @@
+let staticCacheName = 'restaurant-cache-v1';
+
 self.addEventLIstener('install', function(event){
 	event.waitUntil(
-		caches.open('restaurant-cache-v1').then(function(cache){
+		caches.open(staticCacheName).then(function(cache){
 			return cache.addAll([
 				'./',
 				'./index.html',
@@ -30,7 +32,16 @@ self.addEventLIstener('install', function(event){
 
 self.addEventListener('activate', function(event) {
   event.waitUntil(
-    // TODO: remove the old cache
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          return cacheName.startsWith('restaurant-') &&
+                 cacheName != staticCacheName;
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })
   );
 });
 
