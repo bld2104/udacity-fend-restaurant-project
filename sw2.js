@@ -1,10 +1,27 @@
-console.log('top of sw file');
-
 // Set a name for the current cache
 var cacheName = 'v1'; 
 
 // Default files to always cache
-var cacheFiles =['/', '/index.html', '/restaurant.html', '/css/styles.css', '/data/restaurants.json', '/js/dbhelper.js', '/js/main.js', '/js/restaurant_info.js', '/img/1.jpg', '/img/2.jpg', '/img/3.jpg', '/img/4.jpg', '/img/5.jpg', '/img/6.jpg', '/img/7.jpg', '/img/8.jpg', '/img/9.jpg', '/img/10.jpg'];
+var cacheFiles = [
+                './',
+                './index.html',
+                './restaurant.html',
+                './css/styles.css',
+                './data/restaurants.json',
+                './js/dbhelper.js',
+                './js/main.js',
+                './js/restaurant_info.js',
+                './img/1.jpg',
+                './img/2.jpg',
+                './img/3.jpg',
+                './img/4.jpg',
+                './img/5.jpg',
+                './img/6.jpg',
+                './img/7.jpg',
+                './img/8.jpg',
+                './img/9.jpg',
+                './img/10.jpg'
+]
 
 
 self.addEventListener('install', function(e) {
@@ -69,7 +86,7 @@ self.addEventListener('fetch', function(e) {
 				// If the request is NOT in the cache, fetch and cache
 
 				var requestClone = e.request.clone();
-				return fetch(requestClone)
+				fetch(requestClone)
 					.then(function(response) {
 
 						if ( !response ) {
